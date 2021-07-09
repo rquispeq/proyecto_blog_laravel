@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Auth::routes();
+Auth::routes([
+    'register' => false
+]);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
