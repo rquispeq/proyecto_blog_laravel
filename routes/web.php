@@ -19,9 +19,12 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Auth::routes([
-    'register' => false
-]);
+Route::group(['prefix' => 'admin'],function(){
+    Auth::routes([
+        'register' => false
+    ]);
+});
+
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
