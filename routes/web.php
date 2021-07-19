@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,9 +24,13 @@ Route::group(['prefix' => 'admin'],function(){
     Auth::routes([
         'register' => false
     ]);
+
+});
+
+Route::group(['prefix' => 'admin','middleware' => 'ensureIsAdmin'],function(){
+    Route::get('home',[HomeController::class,'index'])->name('home');
+    Route::resource('posts',PostController::class);
 });
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::resource('posts',PostController::class,['except' => 'index']);
