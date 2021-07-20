@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,9 @@ class EnsureIsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->admin == 1) {
+        $id = Auth::id();
+        $user = User::find($id)->first();
+        if (Auth::id() && $user->admin == 1) {
             return $next($request);
         }
 

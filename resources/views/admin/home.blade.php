@@ -1,6 +1,6 @@
 @extends('layouts.template.admin.app')
 @section('title')
-Titulo
+{{route('admin.home')}}
 @endsection
 
 @section('content')
