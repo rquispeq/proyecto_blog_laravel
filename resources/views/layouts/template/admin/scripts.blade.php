@@ -10,9 +10,9 @@
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
-<script src="{{url('template/admin/plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
-<script src="{{url('template/admin/plugins/raphael/raphael.min.js')}}"></script>
-<script src="{{url('template/admin/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
-<script src="{{url('template/admin/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
+<!-- <script src="{{url('template/admin/plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script> -->
+<!-- <script src="{{url('template/admin/plugins/raphael/raphael.min.js')}}"></script> -->
+<!-- <script src="{{url('template/admin/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script> -->
+<!-- <script src="{{url('template/admin/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script> -->
 <!-- ChartJS -->
-<script src="{{url('template/admin/plugins/chart.js/Chart.min.js')}}"></script>
+<!-- <script src="{{url('template/admin/plugins/chart.js/Chart.min.js')}}"></script> -->

@@ -11,6 +11,7 @@ Gestión de Posts
             <div class="card-header">
                 <h3 class="card-title">Posts</h3>
                 <div class="card-tools">
+                    <a href="{{route('admin.posts.create')}}">Agregar</a>
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-minus"></i>
                     </button>
@@ -35,7 +36,8 @@ Gestión de Posts
                                 <td>{{ $post->created_at }}</td>
                                 <td>{{ $post->updated_at }}</td>
                                 <td>
-                                    <a href="">Ver</a>
+                                    <a href="{{ route('admin.posts.show',$post->id) }}">Ver</a>
+                                    <a href="{{ route('admin.posts.update',$post->id) }}">Actualizar</a>
                                     <a href="">Desactivar</a>
                                 </td>
                             </tr>

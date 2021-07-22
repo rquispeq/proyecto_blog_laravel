@@ -14,16 +14,18 @@ class PostController extends Controller
     }
 
     public function index(){
-        $posts = Post::all()->sortByDesc('created_at');
+        $posts = Post::all()->sortByDesc('create_at');
+        // dd($posts);
+        // $posts = Post::paginate(2);
         return view('admin.posts.home',['posts'=> $posts]);
     }
 
     public function show(Post $post){
-        return view('posts.show',['post' => $post]);
+        return view('admin.posts.show',['post' => $post]);
     }
 
     public function create(){
-        return view('posts.create');
+        return view('admin.posts.create');
     }
 
     public function store(Request $request){
@@ -37,6 +39,6 @@ class PostController extends Controller
         Post::create($validated);
 
         $request->session()->flash('success','Post created successfully');
-        return view('posts.create');
+        return view('admin.posts.create');
     }
 }
