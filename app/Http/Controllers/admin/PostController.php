@@ -44,7 +44,9 @@ class PostController extends Controller
         $estados = $post->estados;
 
         $request->session()->flash('success','Post created successfully');
-        return view('admin.posts.create',compact('estados'));
+        // return view('admin.posts.create',compact('estados'));
+        
+        return redirect()->route('admin.posts.create');
     }
     
     public function edit(Post $post){
