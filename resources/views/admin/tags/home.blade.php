@@ -1,7 +1,7 @@
 @extends('layouts.template.admin.app')
 
 @section('title')
-Gestión de Posts
+Gestión de tags
 @endsection
 
 @section('content')
@@ -9,9 +9,9 @@ Gestión de Posts
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Posts</h3>
+                <h3 class="card-title">Tags</h3>
                 <div class="card-tools">
-                    <a href="{{route('admin.posts.create')}}">Agregar</a>
+                    <a href="{{route('admin.tags.create')}}">Agregar</a>
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-minus"></i>
                     </button>
@@ -21,23 +21,20 @@ Gestión de Posts
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Título</th>
+                            <th>Nombre</th>
                             <th>Estado</th>
                             <th>Fecha de creación</th>
-                            <th>Última edición</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($posts as $post)
+                        @foreach($tags as $tag)
                             <tr>
-                                <td>{{ $post->title }}</td>
-                                <td>{{ $post->estados[$post->active] }}</td>
-                                <td>{{ $post->created_at }}</td>
-                                <td>{{ $post->updated_at }}</td>
+                                <td>{{ $tag->name }}</td>
+                                <td>{{ $estados[$tag->active] }}</td>
+                                <td>{{ $tag->created_at }}</td>
                                 <td>
-                                    <a href="{{ route('admin.posts.show',$post->id) }}">Ver</a>
-                                    <a href="{{ route('admin.posts.edit',$post->id) }}">Actualizar</a>
+                                    <a href="{{ route('admin.tags.edit',$tag->id) }}">Actualizar</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -45,7 +42,7 @@ Gestión de Posts
                 </table>
             </div>
             <div class="card-footer clearfix">
-                {{$posts->links('pagination::bootstrap-4')}}
+                {{$tags->links()}}
             </div>
         </div>
     </div>

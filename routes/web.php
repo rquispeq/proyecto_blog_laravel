@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\PostController as AdminPostController;
+use App\Http\Controllers\admin\TagController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,7 @@ Route::group(['prefix' => 'admin'],function(){
 Route::group(['prefix' => 'admin','middleware' => 'ensureIsAdmin','as'=>'admin.'],function(){
     Route::get('home',[HomeController::class,'index'])->name('home');
     Route::resource('posts',AdminPostController::class);
+    Route::resource('tags',TagController::class);
 });
 
 Route::get('/posts/{post}',[PostController::class,'show'])->name('posts.show');
