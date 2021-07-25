@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,6 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Post::where('active',1)->orderBy('created_at','desc')->get();
-        return view('home',['posts'=>$posts]);
+        $tags = Tag::where('active',1)->get();
+        return view('home',compact('posts','tags'));
     }
 }
