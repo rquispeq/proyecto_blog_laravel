@@ -19,8 +19,8 @@ class EnsureIsAdmin
     public function handle(Request $request, Closure $next)
     {
         $id = Auth::id();
-        $user = User::find($id)->first();
-        if (Auth::id() && $user->admin == 1) {
+        // $user = ;
+        if (Auth::id() && User::find($id)->first()->admin == 1) {
             return $next($request);
         }
 

@@ -37,13 +37,15 @@ Gestión de Posts
                                 <td>{{ $post->updated_at }}</td>
                                 <td>
                                     <a href="{{ route('admin.posts.show',$post->id) }}">Ver</a>
-                                    <a href="{{ route('admin.posts.update',$post->id) }}">Actualizar</a>
-                                    <a href="">Desactivar</a>
+                                    <a href="{{ route('admin.posts.edit',$post->id) }}">Actualizar</a>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="card-footer clearfix">
+                {{$posts->links('pagination::bootstrap-4')}}
             </div>
         </div>
     </div>
