@@ -12,4 +12,9 @@ class Post extends Model
     protected $fillable = ['title','content','user_id','active'];
 
     public $estados = ['Inactivo','Activo'];
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id')->first();
+    }
+
 }
