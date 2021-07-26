@@ -15,7 +15,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
     }
 
     /**
@@ -26,6 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Post::where('active',1)->orderBy('created_at','desc')->get();
+        
         $tags = Tag::where('active',1)->get();
         return view('home',compact('posts','tags'));
     }

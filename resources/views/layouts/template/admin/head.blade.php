@@ -11,3 +11,5 @@
 <link rel="stylesheet" href="{{url('template/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
 <!-- Theme style -->
 <link rel="stylesheet" href="{{url('template/admin/dist/css/adminlte.min.css')}}">
+
+@yield('specific-head')

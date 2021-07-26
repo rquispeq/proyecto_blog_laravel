@@ -32,8 +32,25 @@
                                                     <div class="col-6">
                                                         <ul class="post-tags">
                                                             <li><i class="fa fa-tags"></i></li>
-                                                            <li><a href="#">Beauty</a>,</li>
-                                                            <li><a href="#">Nature</a></li>
+                                                            @if(count($post->tags) != 0)
+
+                                                                @php $i= 0; @endphp
+
+                                                                @foreach($post->tags as $tag)
+
+                                                                    @php $i++; @endphp
+
+                                                                    @if($i != count($post->tags))
+                                                                    <li><a href="#">{{$tag->name}}</a>,</li>
+                                                                    @else
+                                                                    <li><a href="#">{{$tag->name}}</a></li>
+                                                                    @endif
+
+                                                                @endforeach
+
+                                                            @else
+                                                            <li>Sin Tags</li>
+                                                            @endif
                                                         </ul>
                                                     </div>
                                                     <div class="col-6">

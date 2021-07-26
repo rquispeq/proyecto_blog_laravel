@@ -16,3 +16,7 @@
 <!-- <script src="{{url('template/admin/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script> -->
 <!-- ChartJS -->
 <!-- <script src="{{url('template/admin/plugins/chart.js/Chart.min.js')}}"></script> -->
+
+<!-- <link rel="stylesheet" href="{{url('template/admin/plugins/select2/js/select2.full.min.js')}}"> -->
+
+@yield('specific-scripts')

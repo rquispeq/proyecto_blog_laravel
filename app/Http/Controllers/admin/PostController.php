@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\Post;
 use App\Http\Controllers\Controller;
+use App\Models\PostTag;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,22 +28,32 @@ class PostController extends Controller
     public function create(){
         $post = new Post;
         $estados = $post->estados;
-        return view('admin.posts.create',compact('estados'));
+
+        $tags = Tag::where('active',1)->orderBy('name')->get();
+        return view('admin.posts.create',compact('estados','tags'));
     }
 
     public function store(Request $request){
         $validated = $request->validate([
             'title' => ['required','max:150'],
             'content' => ['required', 'max:225'],
-            'active' => 'required'
+            'active' => 'required',
+            'tags' => 'required'
         ]);
 
         $validated['user_id'] = Auth::user()->id;
 
-        Post::create($validated);
 
-        $post = new Post;
-        $estados = $post->estados;
+        $post = Post::create($validated);
+
+        foreach ($validated['tags'] as $tag_id) {
+            $tag = Tag::find($tag_id);
+            $atributes = ['post_id' => $post->id,'tag_id' => $tag->id];
+            PostTag::create($atributes);
+        }
+
+        // $post = new Post;
+        // $estados = $post->estados;
 
         $request->session()->flash('success','Post created successfully');
         // return view('admin.posts.create',compact('estados'));
