@@ -1,5 +1,9 @@
 @extends('layouts.template.admin.app')
 
+@section('specific-head')
+<link rel="stylesheet" href="{{url('template/admin/plugins/select2/css/select2.min.css')}}">
+@endsection
+
 @section('title')
 Gestión de Posts
 @endsection
@@ -28,7 +32,7 @@ Gestión de Posts
                     <div class="form-group row">
                         <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Título') }}</label>
                         <div class="col-md-6">
-                            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') ? old('title') : $post->title }}">
+                            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title',$post->title) }}" required>
                             @error('title')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -41,7 +45,7 @@ Gestión de Posts
                         <label for="content" class="col-md-4 col-form-label text-md-right">{{ __('Contenido') }}</label>
 
                         <div class="col-md-6">
-                            <textarea name="content" id="content" cols="30" class="form-control @error('content') is-invalid @enderror" rows="10" required>{{ old('content') ? old('content') : $post->content }}</textarea>
+                            <textarea name="content" id="content" cols="30" class="form-control @error('content') is-invalid @enderror" rows="10" required>{{ old('content',$post->content) }}</textarea>
                             @error('content')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -71,6 +75,24 @@ Gestión de Posts
                     </div>
 
                     <div class="form-group row">
+                        <label for="content" class="col-md-4 col-form-label text-md-right">{{ __('Tags') }}</label>
+                        <div class="col-md-6">
+                            <select name="tags[]" class="form-control" id="select_tags" required multiple>
+                                @foreach($tags as $tag)
+                                    <option value="{{$tag->id}}" {{ (in_array($tag->id, old('tags',$selected_tags))) ? 'selected' : ''}}>
+                                        {{$tag->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('tags')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group row">
                         <div class="col-md-8 offset-md-4">
                             <button type="submit" class="btn btn-primary">Actualizar Post</button>
                         </div>
@@ -81,4 +103,13 @@ Gestión de Posts
         </div>
     </div>
 </div>
+@endsection
+
+@section('specific-scripts')
+<script src="{{url('template/admin/plugins/select2/js/select2.full.min.js')}}"></script>
+<script>
+    $(document).ready(function() {
+        $('#select_tags').select2();
+    });
+</script>
 @endsection

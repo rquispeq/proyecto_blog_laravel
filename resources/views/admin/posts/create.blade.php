@@ -2,11 +2,6 @@
 
 @section('specific-head')
 <link rel="stylesheet" href="{{url('template/admin/plugins/select2/css/select2.min.css')}}">
-<style>
-    .select2-container{
-        width: 100%;
-    }
-</style>
 @endsection
 
 @section('title')

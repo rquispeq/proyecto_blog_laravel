@@ -46,11 +46,7 @@ class PostController extends Controller
 
         $post = Post::create($validated);
 
-        foreach ($validated['tags'] as $tag_id) {
-            $tag = Tag::find($tag_id);
-            $atributes = ['post_id' => $post->id,'tag_id' => $tag->id];
-            PostTag::create($atributes);
-        }
+        $this->createTagsForPost($validated['tags'],$post);
 
         // $post = new Post;
         // $estados = $post->estados;
@@ -62,24 +58,43 @@ class PostController extends Controller
     }
     
     public function edit(Post $post){
-        return view('admin.posts.update',['post' => $post]);
+        $tags = Tag::where('active',1)->get();
+
+        $post_tags = $post->tags();
+        $selected_tags = $post_tags->pluck('tag_id')->toArray();
+        
+        return view('admin.posts.update',compact('post','tags','selected_tags'));
     }
 
     public function update(Request $request, Post $post){
         $validated = $request->validate([
             'title' => ['required','max:150'],
             'content' => ['required', 'max:225'],
-            'active' => 'required'
+            'active' => 'required',
+            'tags' => 'required'
         ]);
 
         $post->title = $validated['title'];
         $post->content = $validated['content'];
         $post->active = $validated['active'];
+
+        $post->tags()->detach();
+        $this->createTagsForPost($validated['tags'],$post);
+
         $post->save();
+
 
         $request->session()->flash('success','Post updated successfully');
 
         return redirect()->route('admin.posts.edit',['post'=>$post]);
+    }
+
+    public function createTagsForPost($tags, $post){
+        foreach ($tags as $tag_id) {
+            $tag = Tag::find($tag_id);
+            $atributes = ['post_id' => $post->id,'tag_id' => $tag->id];
+            PostTag::create($atributes);
+        }
     }
 
 }
