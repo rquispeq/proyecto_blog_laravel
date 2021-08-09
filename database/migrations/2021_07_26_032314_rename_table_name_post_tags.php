@@ -13,7 +13,7 @@ class RenameTableNamePostTags extends Migration
      */
     public function up()
     {
-        Schema::rename('post_tag','post_tags');
+        Schema::rename('post_tags','post_tag');
     }
 
     /**
@@ -23,6 +23,6 @@ class RenameTableNamePostTags extends Migration
      */
     public function down()
     {
-        Schema::rename('post_tags','post_tag');
+        Schema::rename('post_tag','post_tags');
     }
 }

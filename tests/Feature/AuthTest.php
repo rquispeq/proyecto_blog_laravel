@@ -18,7 +18,7 @@ class AuthTest extends TestCase
      */
     public function test_login_screen()
     {
-        $response = $this->get('/admin/login');
+        $response = $this->get(route('login'));
 
         $response->assertStatus(200);
     }
@@ -29,7 +29,7 @@ class AuthTest extends TestCase
             'password' => Hash::make($password)
         ]);
 
-        $this->from('/admin/login')->post('/admin/login',[
+        $this->from(route('login'))->post(route('login'),[
             'email' => $admin->email,
             'password' => $password
         ]);
@@ -41,12 +41,8 @@ class AuthTest extends TestCase
     }
 
     public function test_admin_view_home_dashboard(){
-        $password = 'admin_password';
-        $admin = User::factory()->admin()->create([
-            'password' => Hash::make($password)
-        ]);
+        $admin = $this->actingAsAdmin();
 
-        $this->actingAs($admin);
         $this->assertAuthenticatedAs($admin);
         $response = $this->get(route('admin.home'));
         $response->assertStatus(200);

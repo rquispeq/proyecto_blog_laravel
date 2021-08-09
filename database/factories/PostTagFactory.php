@@ -3,17 +3,18 @@
 namespace Database\Factories;
 
 use App\Models\Post;
-use App\Models\User;
+use App\Models\PostTag;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PostFactory extends Factory
+class PostTagFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Post::class;
+    protected $model = PostTag::class;
 
     /**
      * Define the model's default state.
@@ -22,12 +23,11 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        $user = User::all()->first();
+        $post = Post::all()->random(1)->first();
+        $tag = Tag::all()->random(1)->first();
         return [
-            'title' => $this->faker->paragraph(1),
-            'content' => $this->faker->paragraph(3),
-            'active' => 1,
-            'user_id' => $user->id
+            'post_id' => $post->id,
+            'tag_id' => $tag->id
         ];
     }
 }

@@ -66,31 +66,31 @@ Gestión de Posts
                             <div class="custom-control custom-radio">
                                 <input class="custom-control-input @error('active') is-invalid @enderror" type="radio" id="radio{{ $key }}" {{$key == 1 ? 'checked' : ''}} value="{{ $key }}" name="active">
                                 <label for="radio{{$key}}" class="custom-control-label">{{$estado}}</label>
+                                @error('active')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             @endforeach
                             
-                            @error('active')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="content" class="col-md-4 col-form-label text-md-right">{{ __('Tags') }}</label>
                         <div class="col-md-6">
-                            <select name="tags[]" class="form-control" id="select_tags" required multiple>
+                            <select name="tags[]" class="form-control @error('tags') is-invalid @enderror" id="select_tags" required multiple>
                                 @foreach($tags as $tag)
                                     <option value="{{$tag->id}}">{{$tag->name}}</option>
                                 @endforeach
                             </select>
+                            @error('tags')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        @error('tags')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
                     </div>
 
                     <div class="form-group row">
