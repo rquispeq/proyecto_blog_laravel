@@ -92,7 +92,7 @@ class PostTest extends TestCase
         $post = Post::factory(1)->create()->first();
         $this->seed(PostTagSeeder::class);
 
-        $tags = Tag::all()->random(1);
+        $tags = Tag::all()->random(2);
         $tags = $tags->pluck('id')->toArray();
         $post_data_update = Post::factory(1)->raw()[0];
         $post_data_update['tags'] = $tags;
