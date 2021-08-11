@@ -49,7 +49,7 @@ class CategoryController extends Controller
         Category::create($validated);
 
         $request->session()->flash('success','Category created successfully');
-        return redirect()->route('admin.category.create');
+        return redirect()->route('admin.categories.create');
     }
 
     /**
