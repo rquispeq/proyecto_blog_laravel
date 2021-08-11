@@ -69,9 +69,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( Category $category)
     {
-        //
+        $status = $category->estados;
+        return view('admin.categories.update',compact('category','status'));
     }
 
     /**
@@ -81,9 +82,20 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'max:25'],
+            'active' => 'required'
+        ]);
+
+        $category->name = $validated['name'];
+        $category->active = $validated['active'];
+        $category->slug = Str::slug($validated['name']);
+        $category->save();
+
+        $request->session()->flash('success','Category updated successfully');
+        return redirect(route('admin.categories.edit',$category->id));
     }
 
     /**

@@ -33,8 +33,8 @@ Route::group(['prefix' => 'admin'],function(){
 Route::group(['prefix' => 'admin','middleware' => 'ensureIsAdmin','as'=>'admin.'],function(){
     Route::get('home',[HomeController::class,'index'])->name('home');
     Route::resource('posts',AdminPostController::class);
-    Route::resource('tags',TagController::class);
-    Route::resource('categories',CategoryController::class);
+    Route::resource('tags',TagController::class)->except(['show']);
+    Route::resource('categories',CategoryController::class)->except(['show']);
 });
 
 Route::get('/posts/{post}',[PostController::class,'show'])->name('posts.show');
