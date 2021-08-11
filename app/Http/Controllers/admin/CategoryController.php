@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::paginate(5);
+        return view('admin.categories.home',compact('categories'));
     }
 
     /**
@@ -24,7 +27,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $status = (new Category())->estados;
+        return view('admin.categories.create',compact('status'));
     }
 
     /**
@@ -35,7 +39,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'max:25'],
+            'active' => 'required'
+        ]);
+
+        $validated['slug'] = Str::slug($validated['name']);
+
+        Category::create($validated);
+
+        $request->session()->flash('success','Category created successfully');
+        return redirect()->route('admin.category.create');
     }
 
     /**
