@@ -9,9 +9,11 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','content','user_id','active','category_id'];
+    protected $fillable = ['title','content','user_id','active','category_id','banner'];
 
     public $estados = ['Inactivo','Activo'];
+
+    public $banner_status = ['No','Sí'];
 
     public function user(){
         return $this->belongsTo(User::class);

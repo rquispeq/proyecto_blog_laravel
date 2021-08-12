@@ -61,7 +61,7 @@ Gestión de Posts
 
                             @foreach($post->estados as $key => $estado)
                             <div class="custom-control custom-radio">
-                                <input class="custom-control-input @error('active') is-invalid @enderror" type="radio" id="radio{{ $key }}" {{$key == $post->active ? 'checked' : ''}} value="{{ $key }}" name="active">
+                                <input class="custom-control-input @error('active') is-invalid @enderror" type="radio" id="radio{{ $key }}" {{$key == old('active',$post->active) ? 'checked' : ''}} value="{{ $key }}" name="active">
                                 <label for="radio{{$key}}" class="custom-control-label">{{$estado}}</label>
                             </div>
                             @endforeach
@@ -106,6 +106,26 @@ Gestión de Posts
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="content" class="col-md-4 col-form-label text-md-right">{{ __('Publicar en el banner') }}</label>
+
+                        <div class="col-md-6">
+
+                            @foreach($banner_status as $key => $banner_state)
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input @error('banner') is-invalid @enderror" type="radio" id="banner{{ $key }}" {{ $key == old('banner',$post->banner) ? 'checked' : ''}} value="{{ $key }}" name="banner" required>
+                                <label for="banner{{$key}}" class="custom-control-label">{{$banner_state}}</label>
+                                @error('banner')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            @endforeach
+                            
                         </div>
                     </div>
 

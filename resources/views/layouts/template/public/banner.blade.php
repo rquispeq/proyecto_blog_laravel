@@ -4,6 +4,7 @@
     <div class="container-fluid">
         <div class="owl-banner owl-carousel">
             @foreach($posts as $post)
+                @if($post->banner == 1)
                 <div class="item">
                     <img src="template/public/assets/images/banner-item-01.jpg" alt="">
                     <div class="item-content">
@@ -24,6 +25,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             @endforeach
         </div>
     </div>

@@ -30,11 +30,12 @@ class PostController extends Controller
     public function create(){
         $post = new Post;
         $estados = $post->estados;
+        $banner_status = $post->banner_status;
 
         $tags = Tag::where('active',1)->orderBy('name')->get();
         $categories = Category::where('active',1)->orderBy('name')->get();
 
-        return view('admin.posts.create',compact('estados','tags','categories'));
+        return view('admin.posts.create',compact('estados','tags','categories','banner_status'));
     }
 
     public function store(PostRequest $request){
@@ -55,20 +56,23 @@ class PostController extends Controller
     public function edit(Post $post){
         $tags = Tag::where('active',1)->get();
         $categories = Category::where('active',1)->get();
-
+        
+        $banner_status = $post->banner_status;
         $post_tags = $post->tags();
         $selected_tags = $post_tags->pluck('tag_id')->toArray();
         
-        return view('admin.posts.update',compact('post','tags','selected_tags','categories'));
+        return view('admin.posts.update',compact('post','tags','selected_tags','categories','banner_status'));
     }
 
     public function update(PostRequest $request, Post $post){
         $validated = $request->validated();
 
-        $post->title = $validated['title'];
-        $post->content = $validated['content'];
-        $post->active = $validated['active'];
-        $post->category_id = $validated['category_id'];
+        $data_post = $post->attributesToArray();
+        foreach ($validated as $key => $value) {
+            if (array_key_exists($key ,$data_post)) {
+                $post->$key = $value;
+            }
+        }
 
         $post->tags()->detach();
         $this->createTagsForPost($validated['tags'],$post);

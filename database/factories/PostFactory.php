@@ -30,7 +30,8 @@ class PostFactory extends Factory
             'content' => $this->faker->paragraph(3),
             'active' => 1,
             'user_id' => $user->id,
-            'category_id' => $category->id
+            'category_id' => $category->id,
+            'banner' => rand(0,1)
         ];
     }
 }

@@ -64,7 +64,7 @@ Gestión de Posts
 
                             @foreach($estados as $key => $estado)
                             <div class="custom-control custom-radio">
-                                <input class="custom-control-input @error('active') is-invalid @enderror" type="radio" id="radio{{ $key }}" {{$key == 1 ? 'checked' : ''}} value="{{ $key }}" name="active">
+                                <input class="custom-control-input @error('active') is-invalid @enderror" type="radio" id="radio{{ $key }}" {{ $key == old('active',1) ? 'checked' : ''}} value="{{ $key }}" name="active" required>
                                 <label for="radio{{$key}}" class="custom-control-label">{{$estado}}</label>
                                 @error('active')
                                     <span class="invalid-feedback" role="alert">
@@ -82,7 +82,7 @@ Gestión de Posts
                         <div class="col-md-6">
                             <select name="tags[]" class="form-control @error('tags') is-invalid @enderror" id="select_tags" required multiple>
                                 @foreach($tags as $tag)
-                                    <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                    <option value="{{$tag->id}}" {{ in_array($tag->id,old('tags',[])) ? 'selected' : '' }} >{{$tag->name}}</option>
                                 @endforeach
                             </select>
                             @error('tags')
@@ -98,10 +98,10 @@ Gestión de Posts
                     <div class="form-group row">
                         <label for="select_category" class="col-md-4 col-form-label text-md-right">{{ __('Categoría') }}</label>
                         <div class="col-md-6">
-                            <select name="category_id" class="form-control @error('category_id') is-invalid @enderror" id="select_category" required >
+                            <select name="category_id" class="form-control @error('category_id') is-invalid @enderror" id="select_category">
                                 <option value="">Selecciona una categoría</option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category->id}}" @if(old('category_id') == $category->id) ? 'selected' :'' @endif >{{$category->name}}</option>
+                                    <option value="{{$category->id}}" {{old('category_id') == $category->id ? 'selected' :''}} >{{$category->name}}</option>
                                 @endforeach
                             </select>
                             @error('category_id')
@@ -109,6 +109,26 @@ Gestión de Posts
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="content" class="col-md-4 col-form-label text-md-right">{{ __('Publicar en el banner') }}</label>
+
+                        <div class="col-md-6">
+
+                            @foreach($banner_status as $key => $banner_state)
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input @error('banner') is-invalid @enderror" type="radio" id="banner{{ $key }}" {{ $key == old('banner',0) ? 'checked' : ''}} value="{{ $key }}" name="banner" required>
+                                <label for="banner{{$key}}" class="custom-control-label">{{$banner_state}}</label>
+                                @error('banner')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            @endforeach
+                            
                         </div>
                     </div>
 

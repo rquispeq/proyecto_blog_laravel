@@ -28,7 +28,15 @@ class PostRequest extends FormRequest
             'content' => ['required', 'max:225'],
             'active' => 'required',
             'tags' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'banner' => 'required'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'category_id' => 'category'
         ];
     }
 }
