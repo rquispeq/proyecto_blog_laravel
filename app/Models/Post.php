@@ -25,4 +25,8 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function getCreationTime(){
+        return date('F d, Y',strtotime($this->created_at));
+    }
+
 }

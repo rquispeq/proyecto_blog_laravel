@@ -20,7 +20,7 @@
                                             </a>
                                             <ul class="post-info">
                                                 <li><a href="#">{{ $post->user->name }}</a></li>
-                                                <li><a href="#">{{  date('F d, Y',strtotime($post->created_at)) }}</a></li>
+                                                <li><a href="#">{{ $post->getCreationTime() }}</a></li>
                                                 <li><a href="#">12 Comments</a></li>
                                             </ul>
                                             <p>
@@ -92,11 +92,11 @@
                                     </div>
                                     <div class="content">
                                         <ul>
-                                            @for($i = 0; $i < 3 ; $i++)
+                                            @for($i = 0; $i < 5 ; $i++)
                                                 <li>
                                                     <a href="post-details.html">
                                                         <h5>{{$posts[$i]->title}}</h5>
-                                                        <span>{{$posts[$i]->created_at}}</span>
+                                                        <span>{{$posts[$i]->getCreationTime()}}</span>
                                                     </a>
                                                 </li>
                                             @endfor
