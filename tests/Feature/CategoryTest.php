@@ -51,4 +51,28 @@ class CategoryTest extends TestCase
         $response->assertRedirect(route('admin.categories.create'));
 
     }
+
+    public function test_category_edit_view(){
+        $this->actingAsAdmin();
+
+        $category = Category::factory(1)->create()->first();
+
+        $response = $this->get(route('admin.categories.edit',$category->id));
+
+        $response->assertOk();
+    }
+
+    public function test_category_update(){
+        $this->actingAsAdmin();
+
+        $category_data_update = Category::factory(1)->raw()[0];
+
+        $category = Category::factory(1)->create()->first();
+
+        $response = $this->put(route('admin.categories.update',$category->id),$category_data_update);
+
+        $this->assertDatabaseHas('categories',$category_data_update);
+        $response->assertRedirect(route('admin.categories.edit',$category->id));
+        $response->dumpSession()->assertSessionHas('success','Category updated successfully');
+    }
 }
