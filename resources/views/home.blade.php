@@ -14,7 +14,7 @@
                                             <img src="template/public/assets/images/blog-post-01.jpg" alt="">
                                         </div>
                                         <div class="down-content">
-                                            <span>Lifestyle</span>
+                                            <span>{{$post->category->name}}</span>
                                             <a href="post-details.html">
                                                 <h4>{{ $post->title }}</h4>
                                             </a>
