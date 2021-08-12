@@ -18,6 +18,19 @@ En este proyecto se utilizó 2 templates html para trabajar. El primer template 
 4. Función para destacar los posts en el banner.
 5. Listado de tags, posts y categorias en la pantalla principal.
 
+## Herramientas de Laravel usadas.
+- Controllers.
+- Vistas Blade.
+- Migraciones.
+- Tests automáticos.
+- Pivot para tablas asociativas.
+- FormRequest.
+- Paginación.
+- Routes.
+- Middleware.
+- Factories.
+- Seeders.
+
 ## Pantallas.
 ### Pantalla de creación de post
 
