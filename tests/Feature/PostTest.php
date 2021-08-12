@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use Database\Seeders\CategorySeeder;
 use Database\Seeders\PostSeeder;
 use Database\Seeders\PostTagSeeder;
 use Database\Seeders\TagSeeder;
@@ -29,6 +31,7 @@ class PostTest extends TestCase
     public function test_post_admin_access(){
         $this->actingAsAdmin();
         
+        $this->seed(CategorySeeder::class);
         $this->seed(PostSeeder::class);
 
         $response = $this->get(route('admin.posts.index'));
@@ -38,6 +41,7 @@ class PostTest extends TestCase
     public function test_post_view(){
         $this->actingAsAdmin();
 
+        $this->seed(CategorySeeder::class);
         $post = Post::factory(1)->create()->first();
 
         $response = $this->get(route('admin.posts.show',$post->id));
@@ -59,6 +63,8 @@ class PostTest extends TestCase
         $tags = Tag::all()->random(3);
         $tags = $tags->pluck('id')->toArray();
 
+        $this->seed(CategorySeeder::class);
+
         $post_data = Post::factory(1)->raw()[0];
         $post_data['tags'] = $tags;
 
@@ -69,8 +75,10 @@ class PostTest extends TestCase
         unset($post_data['tags']);
         $this->assertDatabaseHas('posts',$post_data);
 
+
         // Se extrae los tags del post
         $post_tags = $post->tags->all();
+        $post_category = $post->category();
         $this->assertCount(count($tags),$post_tags);
         
         $response->assertRedirect(route('admin.posts.create'));
@@ -79,6 +87,7 @@ class PostTest extends TestCase
     public function test_post_edit(){
         $this->actingAsAdmin();
 
+        $this->seed(CategorySeeder::class);
         $post = Post::factory(1)->create()->first();
         $response = $this->get(route('admin.posts.edit',$post->id));
         $response->assertOk();
@@ -88,6 +97,7 @@ class PostTest extends TestCase
         $this->actingAsAdmin();
 
         $this->seed(TagSeeder::class);
+        $this->seed(CategorySeeder::class);
         $post = Post::factory(1)->create()->first();
         $this->seed(PostTagSeeder::class);
 

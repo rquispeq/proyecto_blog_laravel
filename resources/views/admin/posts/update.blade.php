@@ -93,6 +93,22 @@ Gestión de Posts
                     </div>
 
                     <div class="form-group row">
+                        <label for="select_category" class="col-md-4 col-form-label text-md-right">{{ __('Categoría') }}</label>
+                        <div class="col-md-6">
+                            <select name="category_id" class="form-control @error('category_id') is-invalid @enderror" id="select_category" required>
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}" {{old('category_id',$post->category_id) == $category->id ? 'selected' : ''}} >{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <div class="col-md-8 offset-md-4">
                             <button type="submit" class="btn btn-primary">Actualizar Post</button>
                         </div>

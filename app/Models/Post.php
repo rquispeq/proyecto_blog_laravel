@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','content','user_id','active'];
+    protected $fillable = ['title','content','user_id','active','category_id'];
 
     public $estados = ['Inactivo','Activo'];
 
@@ -19,6 +19,10 @@ class Post extends Model
 
     public function tags(){
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 
 }

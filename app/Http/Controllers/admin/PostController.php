@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\Post;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
+use App\Models\Category;
 use App\Models\PostTag;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -30,17 +32,13 @@ class PostController extends Controller
         $estados = $post->estados;
 
         $tags = Tag::where('active',1)->orderBy('name')->get();
-        return view('admin.posts.create',compact('estados','tags'));
+        $categories = Category::where('active',1)->orderBy('name')->get();
+
+        return view('admin.posts.create',compact('estados','tags','categories'));
     }
 
-    public function store(Request $request){
-        $validated = $request->validate([
-            'title' => ['required','max:150'],
-            'content' => ['required', 'max:225'],
-            'active' => 'required',
-            'tags' => 'required'
-        ]);
-
+    public function store(PostRequest $request){
+        $validated = $request->validated();
         $validated['user_id'] = Auth::user()->id;
 
 
@@ -48,35 +46,29 @@ class PostController extends Controller
 
         $this->createTagsForPost($validated['tags'],$post);
 
-        // $post = new Post;
-        // $estados = $post->estados;
 
         $request->session()->flash('success','Post created successfully');
-        // return view('admin.posts.create',compact('estados'));
         
         return redirect()->route('admin.posts.create');
     }
     
     public function edit(Post $post){
         $tags = Tag::where('active',1)->get();
+        $categories = Category::where('active',1)->get();
 
         $post_tags = $post->tags();
         $selected_tags = $post_tags->pluck('tag_id')->toArray();
         
-        return view('admin.posts.update',compact('post','tags','selected_tags'));
+        return view('admin.posts.update',compact('post','tags','selected_tags','categories'));
     }
 
-    public function update(Request $request, Post $post){
-        $validated = $request->validate([
-            'title' => ['required','max:150'],
-            'content' => ['required', 'max:225'],
-            'active' => 'required',
-            'tags' => 'required'
-        ]);
+    public function update(PostRequest $request, Post $post){
+        $validated = $request->validated();
 
         $post->title = $validated['title'];
         $post->content = $validated['content'];
         $post->active = $validated['active'];
+        $post->category_id = $validated['category_id'];
 
         $post->tags()->detach();
         $this->createTagsForPost($validated['tags'],$post);
