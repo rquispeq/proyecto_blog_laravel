@@ -19,8 +19,8 @@
                                                 <h4>{{ $post->title }}</h4>
                                             </a>
                                             <ul class="post-info">
-                                                <li><a href="#">{{ $post->user()->name }}</a></li>
-                                                <li><a href="#">{{ $post->created_at }}</a></li>
+                                                <li><a href="#">{{ $post->user->name }}</a></li>
+                                                <li><a href="#">{{  date('F d, Y',strtotime($post->created_at)) }}</a></li>
                                                 <li><a href="#">12 Comments</a></li>
                                             </ul>
                                             <p>

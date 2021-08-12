@@ -23,7 +23,7 @@ class PostController extends Controller
     }
 
     public function show(Post $post){
-        $user = $post->user();
+        $user = $post->user;
         return view('admin.posts.show',compact('post','user'));
     }
 

@@ -73,6 +73,5 @@ class CategoryTest extends TestCase
 
         $this->assertDatabaseHas('categories',$category_data_update);
         $response->assertRedirect(route('admin.categories.edit',$category->id));
-        $response->dumpSession()->assertSessionHas('success','Category updated successfully');
     }
 }
