@@ -32,15 +32,15 @@ En este proyecto se utilizó 2 templates html para trabajar. El primer template 
 - Seeders.
 
 ## Pantallas.
+### Pantalla pública de blog
+![Pantalla pública de blog](https://user-images.githubusercontent.com/23042251/129231182-a1db8c75-c869-4c9e-a1b9-7e0d2c41ef05.png)
+### Listado de posts
+![Listado de posts](https://user-images.githubusercontent.com/23042251/129231181-fa91065b-9162-46f8-8884-d821a303dd1d.png)
 ### Pantalla de creación de post
 
 ![Pantalla de creación de post](https://user-images.githubusercontent.com/23042251/129231178-63999529-15f1-4ece-bcaa-1efe551258ed.png)
 
-### Listado de posts
-![Listado de posts](https://user-images.githubusercontent.com/23042251/129231181-fa91065b-9162-46f8-8884-d821a303dd1d.png)
-
-### Pantalla pública de blog
-![Pantalla pública de blog](https://user-images.githubusercontent.com/23042251/129231182-a1db8c75-c869-4c9e-a1b9-7e0d2c41ef05.png)
+### Pantalla de actualización de post.
 
 ![Pantalla de actualización de posts.](https://user-images.githubusercontent.com/23042251/129231187-ad0983f1-9d46-4b9f-8152-fbfc7b0db6bf.png)
 
